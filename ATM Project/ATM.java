@@ -1,25 +1,20 @@
 import java.util.ArrayList;
-public class ATM extends Account
+public class ATM
 {
-    public ArrayList<Account> accounts;
-    public ArrayList<Account> initValues()
-    {
-        Account acc = new Account();
-        acc.setAccountNumber("AC1234");
-        acc.setAccountOwnerName("Nidhi");
-        acc.setPin(1234);
-        acc.setBalance(5000.00);
+    private ArrayList<Account> accounts;
 
-        Account acc1 = new Account();
-        acc1.setAccountNumber("AC5678");
-        acc1.setAccountOwnerName("Rajvir");
-        acc1.setPin(5678);
-        acc1.setBalance(5000.00);
+    public ATM() {
+        accounts = new ArrayList<>();
+        accounts.add(new Account("AC1234", "Nidhi", 1234, 5000.00));
+        accounts.add(new Account("AC5678", "Rajvir", 5678, 5000.00));
+    }
 
-        accounts = new ArrayList<Account>();
-        accounts.add(acc);
-        accounts.add(acc1);
-
-        return accounts;
+    public Account findAccount(String accountNumber, int pin) {
+        for (Account account : accounts) {
+            if (account.getAccountNumber().equals(accountNumber) && account.getPin() == pin) {
+                return account;
+            }
+        }
+        return null;
     }
 }

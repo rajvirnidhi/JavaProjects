@@ -1,56 +1,99 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 class Main extends ATM
 {
-    public static void main(String args[])
-    {
-        Scanner s= new Scanner(System.in);
-
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         ATM atm = new ATM();
-        ArrayList<Account> acc = atm.initValues();
 
-        System.out.println("Enter account number");
-        String accN=s.nextLine();
-        
-        System.out.println("Enter pin");
-        int pin=s.nextInt();
-        boolean isValid = false;
-        for(Account account : acc)
-        {
-            if(account.getPin()==pin && account.getAccountNumber()==accN)
-            {
-                System.out.println("Welcome");
-                isValid=true;
-                break;
-            }
+        System.out.print("Enter account number: ");
+        String accNumber = scanner.nextLine();
+
+        System.out.print("Enter pin: ");
+        int pin = scanner.nextInt();
+
+        Account user = atm.findAccount(accNumber, pin);
+        if (user == null) {
+            System.out.println("Invalid credentials. Exiting...");
+            return;
         }
-        if(isValid)
-        {
-            
-        
 
-        System.out.println("Select account you want to access");
-        int ch=0;
-        int ch1=-1;
-        do
-        {
-            System.out.println("1. Savings Account");
-            System.out.println("2. Current Account");
-            System.out.println("3. Change Pin");
+        System.out.println("Welcome, " + user.getAccountOwnerName());
+
+        int choice;
+        do {
+            System.out.println("\n1. Savings Account");
+            System.out.println("2. Change Pin");
             System.out.println("0. Exit");
-            ch=s.nextInt();
+            System.out.print("Enter choice: ");
+            choice = scanner.nextInt();
 
-            while(ch==1 && ch1!=0)
-            {
-                System.out.println("Select action");
-                System.out.println("1. Check Balance");
-                System.out.println("2. Withdraw");
-                System.out.println("3. Deposit");
-                System.out.println("0. Exit");
-                ch1=s.nextInt();
+            switch (choice) {
+                case 1:
+                    handleSavingsAccount(scanner, user);
+                    break;
+                case 2:
+                    changePin(scanner, user);
+                    break;
+                case 0:
+                    System.out.println("Thank you for using the ATM.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
             }
-        }while(ch!=3);
+        } while (choice != 0);
+
+        scanner.close();
     }
+
+    private static void handleSavingsAccount(Scanner scanner, Account user) {
+        int action;
+        do {
+            System.out.println("\n1. Check Balance");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Deposit");
+            System.out.println("0. Exit");
+            System.out.print("Select action: ");
+            action = scanner.nextInt();
+
+            switch (action) {
+                case 1:
+                    System.out.println("Balance: " + user.getBalance());
+                    break;
+                case 2:
+                    System.out.print("Enter amount to withdraw: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    if (user.withdrawBalance(withdrawAmount)) {
+                        System.out.println("Withdrawal successful. New balance: " + user.getBalance());
+                    } else {
+                        System.out.println("Invalid amount or insufficient funds.");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Enter amount to deposit: ");
+                    double depositAmount = scanner.nextDouble();
+                    if (user.depositBalance(depositAmount)) {
+                        System.out.println("Deposit successful. New balance: " + user.getBalance());
+                    } else {
+                        System.out.println("Invalid deposit amount.");
+                    }
+                    break;
+                case 0:
+                    System.out.println("Returning to main menu...");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        } while (action != 0);
+    }
+
+    private static void changePin(Scanner scanner, Account user) {
+        System.out.print("Enter new pin: ");
+        int newPin = scanner.nextInt();
+        if (user.setPin(newPin)) {
+            System.out.println("Pin changed successfully.");
+        } else {
+            System.out.println("New pin must be different from the current pin.");
+        }
     }
 }
