@@ -1,0 +1,22 @@
+<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/hibernateDemo</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">Password@123</property>
+        
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!--hibernate.hbm2ddl.auto is a Hibernate configuration property that controls the automatic creation, update, validation, or deletion of database tables based on your entity mappings.
+            The value "update" ensures that Hibernate will update the existing database schema without dropping or removing any existing data.
+            create	    | Drops and recreates the schema every time the application starts (deletes existing data).
+            create-drop	| Same as create, but drops the schema when the session factory closes.
+            update	    | Updates the schema without deleting data, but does not modify existing constraints.
+            validate	| Only validates if the schema matches the entity mappings; does not make changes.
+            none	    | Disables automatic schema management.
+        -->
+        
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+    </session-factory>
+</hibernate-configuration>
