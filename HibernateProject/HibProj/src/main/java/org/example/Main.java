@@ -5,14 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Student s = new Student();
         s.setRollno(26);
         s.setName("Purva");
-        s.setAge(28);
+        s.setAge(29);
 
         // 2 ways
         // 1. using xml --> all the resources and xml files go to resources folder
@@ -39,13 +38,17 @@ public class Main {
         Session session = sf.openSession();
 
         // while fetching the data we don't need transaction or persist
-//        Transaction transaction = session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
 //        session.persist(s);
 
-        // save is deprecated
+        // save is deprecated so we will use persist
         //session.save(s); // this is transaction, so we need to commit this transaction
-//        transaction.commit();
 
+        //updates the data in db
+        // it checks if that value is present in the db or not,
+        // if it is present it will update that value
+        // else it will add that value to db
+        session.merge(s);
 
         Student s2= null;
         // We can use get method to get some value stored in db using primary key
@@ -53,6 +56,13 @@ public class Main {
         s2=session.get(Student.class,25);
         //note you can use s2!=null before using object
         System.out.println(s2);
+
+
+        // if you don't have the object then you can fetch the object and send it in remove
+        session.remove(s2);
+
+        transaction.commit();
+
         //good practice to close it
         session.close();
         sf.close();
