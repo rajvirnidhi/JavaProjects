@@ -38,13 +38,21 @@ public class Main {
         //NOTE: for any unit of work we will create new session
         Session session = sf.openSession();
 
-        Transaction transaction = session.beginTransaction();
-        session.persist(s);
+        // while fetching the data we don't need transaction or persist
+//        Transaction transaction = session.beginTransaction();
+//        session.persist(s);
 
         // save is deprecated
         //session.save(s); // this is transaction, so we need to commit this transaction
-        transaction.commit();
+//        transaction.commit();
 
+
+        Student s2= null;
+        // We can use get method to get some value stored in db using primary key
+        // automatically hibernate will convert the values to properties in object
+        s2=session.get(Student.class,25);
+        //note you can use s2!=null before using object
+        System.out.println(s2);
         //good practice to close it
         session.close();
         sf.close();
