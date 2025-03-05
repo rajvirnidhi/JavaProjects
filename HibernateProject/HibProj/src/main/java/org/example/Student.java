@@ -1,14 +1,20 @@
 package org.example;
 
-import jakarta.persistence.Entity; // standard structure for all the ORM tools to follow
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+// there are 3 things here,
+// Table name, Entity name and Class name
+// from the class name the entity name is set and from entity name table name is set
+//@Entity (name = "student_name") //--> sets entity and table name as student_name
 @Entity // need to mention the entity annotation so hibernate will recognize that it is a class which needs to be represented in db
+@Table(name = "student_table")
 public class Student {
 
     @Id // specifying primary key for the table
     private int rollno;
+    @Column(name = "student_name") // this will change the column name as student_name
     private String name;
+    @Transient // prevent this column from being added to the table
     private int age;
 
     public int getRollno() {
