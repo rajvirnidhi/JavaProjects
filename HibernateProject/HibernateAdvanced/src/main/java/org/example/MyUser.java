@@ -4,11 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class MyUser {
     @Id
     private int userId;
-    private String user;
+    private String userName;
     private String tech;
+    private Laptop laptop;
+
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
+    }
 
     public int getUserId() {
         return userId;
@@ -18,12 +27,12 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getTech() {
@@ -36,10 +45,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "MyUser{" +
                 "userId=" + userId +
-                ", user='" + user + '\'' +
+                ", user='" + userName + '\'' +
                 ", tech='" + tech + '\'' +
+                ", laptop=" + laptop +
                 '}';
     }
 }
