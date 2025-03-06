@@ -7,14 +7,14 @@ import jakarta.persistence.*;
 // from the class name the entity name is set and from entity name table name is set
 //@Entity (name = "student_name") //--> sets entity and table name as student_name
 @Entity // need to mention the entity annotation so hibernate will recognize that it is a class which needs to be represented in db
-@Table(name = "student_table")
+//@Table(name = "student_table")
 public class Student {
 
     @Id // specifying primary key for the table
     private int rollno;
-    @Column(name = "student_name") // this will change the column name as student_name
+    //@Column(name = "student_name") // this will change the column name as student_name
     private String name;
-    @Transient // prevent this column from being added to the table
+    //@Transient // prevent this column from being added to the table
     private int age;
 
     public int getRollno() {
