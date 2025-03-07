@@ -1,0 +1,21 @@
+Mapping in Hibernate
+
+Current scenario laptop is embedded in user table.
+The laptop is an object itself and it should have it's own table instead of being embedded to user table
+Also a user can have more than one laptop this would create redundant data
+
+so we can create a user table and a laptop table
+laptop table needs it's own primary key so let's add Lid
+so to map the laptop with user we will add a foreign key in user
+
+in user we add primary key of laptop
+1 to 1 relationship --> 1 user has 1 laptop
+
+but here we have
+1 to many from users perspective ie a user can have more than 1 laptop
+and
+many to 1 from laptops perspective ie multiple laptops can be owned by a user
+
+so if we want to map both the tables we should use add a foreign key of user table to laptop table, because if a user has more than 1 laptop it will again have multiple rows with same user id but if we add the foreign key in laptop table then only 1 laptop record will be there
+
+there is one more option to create a new table user_laptop table where for every user id a laptop id is assigned however in case on many to many adding column to either table won't work hence in such cases we need to create a new table

@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Laptop laptop = new Laptop();
+        laptop.setLaptop_id(0);
         laptop.setBrand("HP");
         laptop.setModel("HP-27F3K");
         laptop.setRam(16);
@@ -21,11 +22,14 @@ public class Main {
 
         Configuration cfg = new Configuration();
         cfg.addAnnotatedClass(org.example.MyUser.class);
+        cfg.addAnnotatedClass(org.example.Laptop.class);
         cfg.configure();
         SessionFactory sf= cfg.buildSessionFactory();
 
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
+
+        session.persist(laptop);
         session.persist(user);
         transaction.commit();
 
