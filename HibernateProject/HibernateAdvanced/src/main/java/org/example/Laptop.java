@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 //@Embeddable // Laptop is nota recognized jdbc type, sql can recognize int string char etc but not laptop type
 //so adding embeddable type will embed properties of laptop to user columns in db
 @Entity
-class Laptop {
+public class Laptop {
     @Id
     private int laptop_id;
     private String brand;
