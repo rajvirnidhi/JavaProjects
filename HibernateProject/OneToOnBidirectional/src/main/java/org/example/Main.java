@@ -19,6 +19,7 @@ public class Main {
         emp.setLastName("Rajvir");
         emp.setMobNo(1234567890);
         emp.setAdd(add);
+        //Setting it bidirectional
         add.setEmployee(emp);
 
         SessionFactory sf = new Configuration()
@@ -29,6 +30,7 @@ public class Main {
         Session session = sf.openSession();
         Transaction transaction = session.beginTransaction();
 
+        //storing add will also store emp and vice-versa
         session.persist(add);
 
         transaction.commit();
