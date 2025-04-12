@@ -13,7 +13,8 @@ public class Address
     private String city;
     private String state;
     private int pincode;
-    @OneToOne(mappedBy = "add",
+    @OneToOne(mappedBy = "add", // tells the address that don't map it here as well ie don't map in address table
+                                // as it is already mapped by add in employee table
             cascade = CascadeType.ALL)
     private Employee employee;
 
