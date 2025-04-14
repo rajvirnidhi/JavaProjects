@@ -43,6 +43,10 @@ public class Main {
 
         transaction.commit();
         session.close();
+
+        Session session2 = sessionFactory.openSession();
+        Author author1 = session2.get(Author.class,1);
+        //System.out.println(author1);
         sessionFactory.close();
     }
 }

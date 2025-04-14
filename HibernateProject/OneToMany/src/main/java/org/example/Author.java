@@ -11,7 +11,7 @@ public class Author {
     private int authID;
     @Column(name = "author_name")
     private String authName;
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
     //@Column(name = "books")--> cannot use this as books won't be stored as column
     private List<Book> books;
 

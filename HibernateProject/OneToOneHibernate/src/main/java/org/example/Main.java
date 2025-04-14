@@ -33,6 +33,11 @@ public class Main {
 
         transaction.commit();
         session.close();
+
+        Session session2 = sf.openSession();
+        Employee employee = session2.get(Employee.class,1);
+        System.out.println(employee);
+
         sf.close();
     }
 }
