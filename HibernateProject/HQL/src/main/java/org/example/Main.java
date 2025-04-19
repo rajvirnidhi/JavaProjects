@@ -30,7 +30,7 @@ public class Main {
 
         // getting one row of object array and displaying the values
         for (Object[] data : laptops)
-        {   // data[0] is by default object type so you need to typecast it
+        {   // data[0] is by default object type, so you need to typecast it
             System.out.println((String)data[0]+ " " +(String)data[1]);
         }
 
