@@ -23,11 +23,12 @@ public class Main {
         //from Laptop where brand like 'HP'  --> here remember to give single quotes while passing hardcoded value
 
         String brand = "HP";
-        Query query = session.createQuery("from Laptop where brand like ?1");
+        Query query = session.createQuery("select model from Laptop where brand like ?1");
         query.setParameter(1,brand);
-        List<Laptop> laptops = query.getResultList();
+        // need to change the type of list as we are fetching model only
+        List<String> laptop_model = query.getResultList();
 
-        System.out.println(laptops);
+        System.out.println(laptop_model);
 
         session.close();
         sf.close();
