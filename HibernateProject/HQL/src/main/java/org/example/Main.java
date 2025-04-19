@@ -19,7 +19,12 @@ public class Main {
         //SQL --> select * from laptop where ram=32
         //HQL --> from Laptop where ram=32
         //HQL Laptop is class
-        Query query = session.createQuery("from Laptop where ram=32");
+
+        //from Laptop where brand like 'HP'  --> here remember to give single quotes while passing hardcoded value
+
+        String brand = "HP";
+        Query query = session.createQuery("from Laptop where brand like ?1");
+        query.setParameter(1,brand);
         List<Laptop> laptops = query.getResultList();
 
         System.out.println(laptops);
